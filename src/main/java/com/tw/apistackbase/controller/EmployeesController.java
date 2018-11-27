@@ -12,18 +12,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 /**
  * Created by jxzhong on 18/08/2017.
  */
 @RestController
 @RequestMapping("/employees")
-public class EmployeesResource {
+public class EmployeesController {
 
     private final Logger log = Logger.getLogger(this.getClass().getName());
     EmployeeService employeeService = new EmployeeService();
 
     @Autowired
-    public EmployeesResource(EmployeeService employeeService){
+    public EmployeesController(EmployeeService employeeService){
         this.employeeService = employeeService;
     }
 
@@ -57,6 +59,20 @@ public class EmployeesResource {
         this.employeeService.deleteEmployee(targetID);
         List<Employees> updatedEmployeesList = this.employeeService.getAll();
         return updatedEmployeesList;
+    }
+
+//    @RequestMapping(params = { "page", "pageSize" }, method = GET, produces = {"application/json"})
+//    @ResponseBody
+//    public List<Employees> getAllWithPagination(@RequestParam( "page" ) int page, @RequestParam( "pageSize" ) int size)
+//    {
+//        return employeeService.getAll(page, size);
+//    }
+
+    @RequestMapping(params = { "gender" }, method = GET, produces = {"application/json"})
+    public List<Employees> getAllWithGender(@RequestParam( "gender" ) String gender)
+    {
+        return employeeService.getAll(gender);
+        //return gender;
     }
 
 }

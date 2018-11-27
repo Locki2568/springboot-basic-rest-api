@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -25,6 +25,14 @@ public class EmployeeService {
 
     public List<Employees> getAll(){
         return this.employees;
+    }
+
+    public List<Employees> getAll(String gender){
+        List<Employees> employeesWithTragetGender = new ArrayList<>();
+        employeesWithTragetGender = this.employees.stream()
+                                                .filter(e -> e.getGender().toLowerCase().equals(gender))
+                                                .collect(Collectors.toList());
+        return employeesWithTragetGender;
     }
 
     public Employees searchEmployee(int id){
