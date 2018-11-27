@@ -35,6 +35,22 @@ public class EmployeeService {
         return employeesWithTragetGender;
     }
 
+    public List<Employees> getAll(int page, int size){
+        int startIdx = 0;
+        if(page > 0){
+            startIdx = page * size - 1;
+        }
+        List<Employees> listWithPage = new ArrayList<>();
+        for(int i = startIdx; i < this.employees.size(); i++){
+            if(i > startIdx + size){
+                break;
+            }
+            listWithPage.add(employees.get(i));
+        }
+        return listWithPage;
+    }
+
+
     public Employees searchEmployee(int id){
         Employees employees = this.employees.get(id);
         return employees;

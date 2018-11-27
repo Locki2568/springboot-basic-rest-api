@@ -61,12 +61,12 @@ public class EmployeesController {
         return updatedEmployeesList;
     }
 
-//    @RequestMapping(params = { "page", "pageSize" }, method = GET, produces = {"application/json"})
-//    @ResponseBody
-//    public List<Employees> getAllWithPagination(@RequestParam( "page" ) int page, @RequestParam( "pageSize" ) int size)
-//    {
-//        return employeeService.getAll(page, size);
-//    }
+    @RequestMapping(params = { "page", "pageSize" }, method = GET, produces = {"application/json"})
+    public List<Employees> getAllWithPagination(@RequestParam( "page" ) int page, @RequestParam( "pageSize" ) int size)
+    {
+        return employeeService.getAll(page, size);
+        //return "Page: "+ page + " Size: "+ size;
+    }
 
     @RequestMapping(params = { "gender" }, method = GET, produces = {"application/json"})
     public List<Employees> getAllWithGender(@RequestParam( "gender" ) String gender)
