@@ -9,33 +9,48 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeeService {
     private List<Employees> employees;
+    private int idIndex = 0;
+
     public EmployeeService(){
         employees = new ArrayList();
-        Employees employees1 = new Employees(0,"Xiaoming", 20, "Male");
-        Employees employees2 = new Employees(1,"Xiaohong", 19, "Female");
-        Employees employees3 = new Employees(2,"Xiaozhi", 15, "Male");
-        Employees employees4 = new Employees(3,"Xiaogang", 16, "Male");
-        Employees employees5 = new Employees(4,"Xiaoxia", 15, "Female");
-        employees.add(employees1);
-        employees.add(employees2);
-        employees.add(employees3);
-        employees.add(employees4);
-        employees.add(employees5);
+//        Employees employees1 = new Employees("Xiaoming", 20, "Male");
+//        Employees employees2 = new Employees("Xiaohong", 19, "Female");
+//        Employees employees3 = new Employees("Xiaozhi", 15, "Male");
+//        Employees employees4 = new Employees("Xiaogang", 16, "Male");
+//        Employees employees5 = new Employees("Xiaoxia", 15, "Female");
+//        employees.add(employees1);
+//        employees.add(employees2);
+//        employees.add(employees3);
+//        employees.add(employees4);
+//        employees.add(employees5);
+
+        save(new Employees("Xiaoming", 20, "Male"));
+        save(new Employees("Xiaohong", 19, "Female"));
+        save(new Employees("Xiaozhi", 15, "Male"));
+        save(new Employees("Xiaogang", 16, "Male"));
+        save(new Employees("Xiaoxia", 15, "Female"));
     }
 
-    public List<Employees> getAll(){
+    private int save(Employees employees){
+        this.idIndex = this.idIndex + 1;
+        employees.setId(idIndex);
+        this.employees.add(employees);
+        return idIndex;
+    }
+
+    public List<Employees> getPage(){
         return this.employees;
     }
 
-    public List<Employees> getAll(String gender){
-        List<Employees> employeesWithTragetGender = new ArrayList<>();
-        employeesWithTragetGender = this.employees.stream()
+    public List<Employees> getPage(String gender){
+        List<Employees> employeesWithTargetGender = new ArrayList<>();
+        employeesWithTargetGender = this.employees.stream()
                                                 .filter(e -> e.getGender().toLowerCase().equals(gender))
                                                 .collect(Collectors.toList());
-        return employeesWithTragetGender;
+        return employeesWithTargetGender;
     }
 
-    public List<Employees> getAll(int page, int size){
+    public List<Employees> getPage(int page, int size){
         int startIdx = 0;
         if(page > 0){
             startIdx = page * size - 1;
@@ -51,7 +66,7 @@ public class EmployeeService {
     }
 
 
-    public Employees searchEmployee(int id){
+    public Employees searchEmployeeByID(int id){
         Employees employees = this.employees.get(id);
         return employees;
     }

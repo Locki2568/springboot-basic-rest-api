@@ -1,14 +1,8 @@
 package com.tw.apistackbase.controller;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -22,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class EmployeesController {
 
     private final Logger log = Logger.getLogger(this.getClass().getName());
-    EmployeeService employeeService = new EmployeeService();
+    EmployeeService employeeService;
 
     @Autowired
     public EmployeesController(EmployeeService employeeService){
@@ -31,12 +25,12 @@ public class EmployeesController {
 
     @GetMapping(produces = {"application/json"})
     public List<Employees> getAll() {
-        return employeeService.getAll();
+        return employeeService.getPage();
     }
 
     @GetMapping(path = "/{id}", produces = {"application/json"})
     public Employees searchEmployee(@PathVariable String id ) {
-        return employeeService.searchEmployee(Integer.parseInt(id));
+        return employeeService.searchEmployeeByID(Integer.parseInt(id));
     }
 
     @PostMapping(produces = {"application/json"},consumes = {"application/json"})
@@ -49,7 +43,7 @@ public class EmployeesController {
     public List<Employees> updateEmployees(@RequestBody Employees employees, @PathVariable String id){
         int targetID = Integer.parseInt(id);
         this.employeeService.updateEmployee(targetID, employees);
-        List<Employees> updatedEmployeesList = this.employeeService.getAll();
+        List<Employees> updatedEmployeesList = this.employeeService.getPage();
         return updatedEmployeesList;
     }
 
@@ -57,21 +51,21 @@ public class EmployeesController {
     public List<Employees> deleteEmployees(@PathVariable String id){
         int targetID = Integer.parseInt(id);
         this.employeeService.deleteEmployee(targetID);
-        List<Employees> updatedEmployeesList = this.employeeService.getAll();
+        List<Employees> updatedEmployeesList = this.employeeService.getPage();
         return updatedEmployeesList;
     }
 
     @RequestMapping(params = { "page", "pageSize" }, method = GET, produces = {"application/json"})
     public List<Employees> getAllWithPagination(@RequestParam( "page" ) int page, @RequestParam( "pageSize" ) int size)
     {
-        return employeeService.getAll(page, size);
+        return employeeService.getPage(page, size);
         //return "Page: "+ page + " Size: "+ size;
     }
 
     @RequestMapping(params = { "gender" }, method = GET, produces = {"application/json"})
     public List<Employees> getAllWithGender(@RequestParam( "gender" ) String gender)
     {
-        return employeeService.getAll(gender);
+        return employeeService.getPage(gender);
         //return gender;
     }
 

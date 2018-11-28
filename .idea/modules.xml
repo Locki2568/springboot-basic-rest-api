@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api.iml" filepath="$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api.iml" filepath="$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_main.iml" group="springboot-basic-rest-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_main.iml" group="springboot-basic-rest-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_test.iml" group="springboot-basic-rest-api" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/springboot-basic-rest-api_test.iml" group="springboot-basic-rest-api" />
     </modules>
   </component>
