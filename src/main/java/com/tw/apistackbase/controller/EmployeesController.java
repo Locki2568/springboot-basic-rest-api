@@ -25,7 +25,7 @@ public class EmployeesController {
 
     @GetMapping(produces = {"application/json"})
     public List<Employees> getAll() {
-        return employeeService.getPage();
+        return employeeService.getAll();
     }
 
     @GetMapping(path = "/{id}", produces = {"application/json"})
@@ -34,16 +34,17 @@ public class EmployeesController {
     }
 
     @PostMapping(produces = {"application/json"},consumes = {"application/json"})
-    public List<Employees> initiateEmployees(@RequestBody List<Employees> employees){
-    List<Employees> newEmployeesList = employeeService.initiateEmployee(employees);
-    return newEmployeesList;
+    public List<Employees> initiateEmployees(@RequestBody Employees employees){
+        employeeService.save(employees);
+        List<Employees> newEmployeesList = employeeService.getAll();
+        return newEmployeesList;
     }
 
     @PutMapping(path = "/{id}", produces = {"application/json"}, consumes = {"application/json"})
     public List<Employees> updateEmployees(@RequestBody Employees employees, @PathVariable String id){
         int targetID = Integer.parseInt(id);
         this.employeeService.updateEmployee(targetID, employees);
-        List<Employees> updatedEmployeesList = this.employeeService.getPage();
+        List<Employees> updatedEmployeesList = this.employeeService.getAll();
         return updatedEmployeesList;
     }
 
@@ -51,7 +52,7 @@ public class EmployeesController {
     public List<Employees> deleteEmployees(@PathVariable String id){
         int targetID = Integer.parseInt(id);
         this.employeeService.deleteEmployee(targetID);
-        List<Employees> updatedEmployeesList = this.employeeService.getPage();
+        List<Employees> updatedEmployeesList = this.employeeService.getAll();
         return updatedEmployeesList;
     }
 
@@ -65,7 +66,7 @@ public class EmployeesController {
     @RequestMapping(params = { "gender" }, method = GET, produces = {"application/json"})
     public List<Employees> getAllWithGender(@RequestParam( "gender" ) String gender)
     {
-        return employeeService.getPage(gender);
+        return employeeService.getEmployeeByGender(gender);
         //return gender;
     }
 

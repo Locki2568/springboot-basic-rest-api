@@ -31,18 +31,18 @@ public class EmployeeService {
         save(new Employees("Xiaoxia", 15, "Female"));
     }
 
-    private int save(Employees employees){
+    public int save(Employees employees){
         this.idIndex = this.idIndex + 1;
         employees.setId(idIndex);
         this.employees.add(employees);
         return idIndex;
     }
 
-    public List<Employees> getPage(){
+    public List<Employees> getAll(){
         return this.employees;
     }
 
-    public List<Employees> getPage(String gender){
+    public List<Employees> getEmployeeByGender(String gender){
         List<Employees> employeesWithTargetGender = new ArrayList<>();
         employeesWithTargetGender = this.employees.stream()
                                                 .filter(e -> e.getGender().toLowerCase().equals(gender))
